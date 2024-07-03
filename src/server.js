@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 
 const connection = require("./db/connection");
 
+const Book = require("./books/model");
+
 const app = express();
 
 app.use(express.json());
@@ -11,23 +13,6 @@ app.use(express.json());
 console.log("HELLO_WORLD: " + process.env.HELLO_WORLD);
 
 connection();
-
-const bookSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  author: {
-    type: String,
-    required: true,
-  },
-  genre: {
-    type: String,
-  },
-});
-
-const Book = mongoose.model("Book", bookSchema);
 
 app.get("/books/getAllBooks", async (request, response) => {
   const books = await Book.find();
