@@ -50,9 +50,21 @@ const deleteBook = async (request, response) => {
   response.send(successResponse);
 };
 
+const getBookByTitle = async (request, response) => {
+  const book = await Book.findOne({ title: request.params.title });
+
+  const successResponse = {
+    message: "success",
+    book: book,
+  };
+
+  response.send(successResponse);
+};
+
 module.exports = {
   getAllBooks: getAllBooks,
   addBook: addBook,
   updateBook: updateBook,
   deleteBook: deleteBook,
+  getBookByTitle: getBookByTitle,
 };
