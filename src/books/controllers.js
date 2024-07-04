@@ -61,10 +61,38 @@ const getBookByTitle = async (request, response) => {
   response.send(successResponse);
 };
 
+const dynamicBookUpdate = async (request, response) => {
+  const { title, ...updates } = request.body;
+
+  // If title is not provided, return an error
+  if (!title) {
+    return response.status(400).send({ message: "title is required" });
+  }
+
+  // Find book by title and then update the values with the provided updates
+  const updateResponse = await Book.updateOne(
+    { title: title },
+    { $set: updates }
+  );
+
+  // If no book is found, return a 404 error
+  if (updateResponse.matchedCount === 0) {
+    return response.status(404).send({ message: "Book not found" });
+  }
+
+  const successResponse = {
+    message: "success",
+    book: updateResponse,
+  };
+
+  response.send(successResponse);
+};
+
 module.exports = {
   getAllBooks: getAllBooks,
   addBook: addBook,
   updateBook: updateBook,
   deleteBook: deleteBook,
   getBookByTitle: getBookByTitle,
+  dynamicBookUpdate: dynamicBookUpdate,
 };
