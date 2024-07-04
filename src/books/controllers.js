@@ -88,6 +88,17 @@ const dynamicBookUpdate = async (request, response) => {
   response.send(successResponse);
 };
 
+const deleteAllBooks = async (request, response) => {
+  const deleteAllBooks = await Book.deleteMany({});
+
+  const successResponse = {
+    message: "success",
+    books: deleteAllBooks,
+  };
+
+  response.send(successResponse);
+};
+
 module.exports = {
   getAllBooks: getAllBooks,
   addBook: addBook,
@@ -95,4 +106,5 @@ module.exports = {
   deleteBook: deleteBook,
   getBookByTitle: getBookByTitle,
   dynamicBookUpdate: dynamicBookUpdate,
+  deleteAllBooks: deleteAllBooks,
 };

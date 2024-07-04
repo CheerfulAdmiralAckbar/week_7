@@ -8,6 +8,7 @@ const {
   deleteBook,
   getBookByTitle,
   dynamicBookUpdate,
+  deleteAllBooks,
 } = require("./controllers");
 
 bookRouter.get("/books/getAllBooks", getAllBooks);
@@ -16,5 +17,6 @@ bookRouter.put("/books", updateBook);
 bookRouter.delete("/books", deleteBook);
 bookRouter.put("/books/dynamicUpdate", dynamicBookUpdate);
 bookRouter.get("/books/book/:title", getBookByTitle);
+bookRouter.delete("/books/deleteAllBooks", deleteAllBooks);
 
 module.exports = bookRouter;
